@@ -1,25 +1,25 @@
-📚 NOVELNEST - AI Book Recommendation System
-Smart book discovery powered by machine learning algorithms. Find your next favorite read instantly.
+# 📚 NOVELNEST - AI Book Recommendation System
+- Smart book discovery powered by machine learning algorithms. Find your next favorite read instantly.
 
-✨ Features
-🎯 AI-Powered Recommendations - Get personalized suggestions
+# ✨ Features
+- 🎯 AI-Powered Recommendations - Get personalized suggestions
 
-📊 Top 50 Trending Books - Curated collection with rankings
+- 📊 Top 50 Trending Books - Curated collection with rankings
 
-🎨 Modern UI - Beautiful, responsive design
+- 🎨 Modern UI - Beautiful, responsive design
 
-⚡ Fast & Accurate - Real-time recommendations
+- ⚡ Fast & Accurate - Real-time recommendations
 
-🔄 Interactive Experience - Smooth animations & transitions
+- 🔄 Interactive Experience - Smooth animations & transitions
 
 
-🛠️ Tech Stack
-Backend: Flask, Python
-Frontend: HTML5, CSS3, JavaScript, Bootstrap
-ML Libraries: Scikit-learn, Pandas, NumPy
-Data Storage: Pickle files
+# 🛠️ Tech Stack
+- Backend: Flask, Python
+- Frontend: HTML5, CSS3, JavaScript, Bootstrap
+- ML Libraries: Scikit-learn, Pandas, NumPy
+- Data Storage: Pickle files
 
-📁 Project Structure
+# 📁 Project Structure
 text
 novelnest/
 ├── app.py                 # Main application
