@@ -12,25 +12,7 @@ Smart book discovery powered by machine learning algorithms. Find your next favo
 
 🔄 Interactive Experience - Smooth animations & transitions
 
-🚀 Quick Start
-Local Setup
-bash
-# 1. Clone repository
-git clone https://github.com/yourusername/novelnest.git
-cd novelnest
 
-# 2. Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Run application
-python app.py
-Open in Browser
-text
-http://localhost:5000
 🛠️ Tech Stack
 Backend: Flask, Python
 Frontend: HTML5, CSS3, JavaScript, Bootstrap
