@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NOVELNEST - Smart Book Discovery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d3436;
+            --secondary: #6c5ce7;
+            --accent: #fd79a8;
+            --light: #dfe6e9;
+            --dark: #1a1a2e;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --trending: #e84393;
+            --gold: #f9c74f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 30%, #4a69bd 100%);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            color: var(--light);
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, rgba(44, 62, 80, 0.95) 0%, rgba(33, 47, 61, 0.95) 100%);
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px !important;
+            font-weight: 700;
+            color: white !important;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            border-radius: 12px;
+            transition: all 0.4s;
+        }
+        
+        .navbar-brand:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .nav > li > a {
+            color: white !important;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 12px 24px !important;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav > li > a:hover {
+            background: rgba(108, 92, 231, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav > li.active > a {
+            background: linear-gradient(45deg, var(--secondary), transparent);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 0 70px;
+            background: linear-gradient(rgba(26, 37, 47, 0.85), rgba(26, 37, 47, 0.95)), 
+                        url('https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-bottom: 50px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.8);
+            background: linear-gradient(45deg, #6c5ce7, #fd79a8, #00cec9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            max-width: 850px;
+            margin: 0 auto 50px;
+            color: var(--light);
+            opacity: 0.95;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            min-width: 180px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #b2bec3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.6);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Trending Badge */
+        .trending-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, var(--trending), #fd79a8);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 10;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 15px rgba(232, 67, 147, 0.4);
+        }
+        
+        .trending-badge::before {
+            content: '🔥 ';
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: white;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .section-tagline {
+            color: #b2bec3;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Trending Section */
+        .trending-section {
+            padding: 60px 0;
+            background: rgba(0,0,0,0.2);
+            border-radius: 30px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .trending-section .section-header h2 {
+            background: linear-gradient(45deg, var(--trending), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Book Cards */
+        .book-grid {
+            padding: 20px 0 60px;
+        }
+        
+        .book-card {
+            background: linear-gradient(145deg, #2d3436, #353b48);
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border-color: var(--secondary);
+        }
+        
+        .book-card.trending {
+            border: 2px solid var(--trending);
+        }
+        
+        .book-card.trending::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--trending), var(--accent));
+        }
+        
+        .card-img-container {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .book-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s;
+        }
+        
+        .book-card:hover .book-image {
+            transform: scale(1.1);
+        }
+        
+        .book-rank {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(45deg, var(--gold), #f9a825);
+            color: #2d3436;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(249, 199, 79, 0.4);
+            z-index: 10;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .book-title {
+            font-family: 'Merriweather', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            height: 56px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .book-author {
+            color: #b2bec3;
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .book-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .votes, .rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .votes i, .rating i {
+            color: var(--warning);
+        }
+        
+        .votes span, .rating span {
+            font-weight: 600;
+        }
+        
+        .rating-value {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        
+        /* Popular Section */
+        .popular-section {
+            padding: 60px 0;
+        }
+        
+        .popular-section .section-header h2 {
+            background: linear-gradient(45deg, var(--secondary), #00cec9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(26, 37, 47, 0.9) 0%, rgba(33, 47, 61, 0.9) 100%);
+            padding: 80px 0;
+            margin-top: 60px;
+            border-radius: 30px 30px 0 0;
+            border-top: 3px solid var(--secondary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .contact-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .contact-header p {
+            color: #b2bec3;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .developer-info {
+            background: rgba(255,255,255,0.05);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        
+        .developer-info h3 {
+            font-family: 'Merriweather', serif;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            transition: all 0.4s;
+            border: 1px solid transparent;
+        }
+        
+        .contact-item:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-5px);
+            border-color: rgba(108, 92, 231, 0.3);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.2);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .contact-details h4 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .contact-details p, .contact-details a {
+            color: #b2bec3;
+            margin: 0;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .contact-details a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .footer p {
+            margin: 0;
+            color: #95a5a6;
+            font-size: 15px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+            
+            .section-header h2 {
+                font-size: 32px;
+            }
+            
+            .book-title {
+                font-size: 18px;
+            }
+            
+            .card-img-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    NOVELNEST
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="/recommend"><i class="fa fa-magic"></i> Recommendations</a></li>
+                    <li><a href="#contact"><i class="fa fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>NOVELNEST: Your Personal Book Sanctuary</h1>
+            <p>Discover books that match your taste using intelligent algorithms. From trending bestsellers to hidden gems, find your next favorite read in our curated collection.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">Trending Books</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Reader Reviews</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">AI-Powered</div>
+                    <div class="stat-label">Smart Recommendations</div>
+                </div>
+            </div>
+            
+            <a href="/recommend" class="cta-button">
+                <i class="fa fa-magic"></i> Get Personalized Recommendations
+            </a>
+        </div>
+    </section>
+
+    <!-- Trending Books Section -->
+    <div class="container trending-section">
+        <div class="section-header">
+            <h2>🔥 Currently Trending</h2>
+            <p class="section-tagline">Top 20 books that readers are loving right now</p>
+        </div>
+        
+        <div class="row">
+            {% for i in range(20) %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="book-card trending">
+                        <div class="book-rank">{{ i + 1 }}</div>
+                        {% if i < 5 %}
+                            <div class="trending-badge">HOT</div>
+                        {% endif %}
+                        <div class="card-img-container">
+                            {% if image[i] %}
+                                <img src="{{ image[i] }}" alt="{{ book_name[i] }}" class="book-image" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Book Cover" class="book-image">
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h3 class="book-title">{{ book_name[i] }}</h3>
+                            <p class="book-author">
+                                <i class="fa fa-user-circle"></i> {{ author[i] }}
+                            </p>
+                            <div class="book-stats">
+                                <div class="votes">
+                                    <i class="fa fa-users"></i>
+                                    <span>{{ votes[i] }}</span>
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <span class="rating-value">{{ rating[i] }}</span>/5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- All Top 50 Books Section -->
+    <div class="container popular-section">
+        <div class="section-header">
+            <h2>📚 All Top 50 Books</h2>
+            <p class="section-tagline">Complete collection of highest-rated books in our database</p>
+        </div>
+        
+        <div class="row">
+            {% for i in range(book_name|length) %}
+                {% if i >= 20 %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="book-card">
+                        <div class="book-rank">{{ i + 1 }}</div>
+                        <div class="card-img-container">
+                            {% if image[i] %}
+                                <img src="{{ image[i] }}" alt="{{ book_name[i] }}" class="book-image" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Book Cover" class="book-image">
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h3 class="book-title">{{ book_name[i] }}</h3>
+                            <p class="book-author">
+                                <i class="fa fa-user-circle"></i> {{ author[i] }}
+                            </p>
+                            <div class="book-stats">
+                                <div class="votes">
+                                    <i class="fa fa-users"></i>
+                                    <span>{{ votes[i] }}</span>
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <span class="rating-value">{{ rating[i] }}</span>/5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-header">
+                <h2><i class="fa fa-handshake-o"></i> Connect With Me</h2>
+                <p>Passionate about books and technology? Let's connect and discuss innovative projects!</p>
+            </div>
+            
+            <div class="developer-info">
+                <h3><i class="fa fa-user-astronaut"></i> About the Developer</h3>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Full Name</h4>
+                            <p>Saurav Kunwar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Address</h4>
+                            <a href="mailto:saurabkunwar5@gmail.com">saurabkunwar5@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-instagram"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Instagram</h4>
+                            <a href="https://www.instagram.com/sauravkunwar___/" target="_blank">@sauravkunwar___</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-linkedin"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>LinkedIn Profile</h4>
+                            <a href="https://www.linkedin.com/in/saurav-kunwar-41b014369/" target="_blank">linkedin.com/in/saurav-kunwar-41b014369/</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>GitHub Projects</h4>
+                            <a href="https://github.com/sauravv-kunwar" target="_blank">github.com/sauravv-kunwar</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-code"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Current Project</h4>
+                            <p>NOVELNEST - Book Recommendation System</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">NOVELNEST</div>
+            <p><i class="fa fa-copyright"></i> 2024 NOVELNEST - Intelligent Book Discovery Platform. Developed by Saurav Kunwar.</p>
+            <p style="margin-top: 15px; font-size: 14px; opacity: 0.8;">
+                <i class="fa fa-brain"></i> Powered by Machine Learning & AI Algorithms | 
+                <i class="fa fa-book"></i> Database: 10,000+ Books | 
+                <i class="fa fa-users"></i> 100,000+ Reader Reviews Analyzed
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
