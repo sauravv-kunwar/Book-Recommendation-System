@@ -20,8 +20,8 @@
 - Data Storage: Pickle files
 
 # 📁 Project Structure
-text
-novelnest/
+- text
+- novelnest/
 ├── app.py                 # Main application
 ├── requirements.txt       # Dependencies
 ├── templates/            # HTML templates
