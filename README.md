@@ -111,7 +111,3 @@ These datasets are used to generate book recommendations based on similarity.
 ## Author
 
 Saurav Kunwar
-
-## License
-
-This project is for educational and learning purposes.
